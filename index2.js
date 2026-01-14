@@ -22,24 +22,53 @@
 // console.log(os.totalmem()); // Output: 9876543210 (in bytes)
 
 // ====== file system (fs) module in Node.js provides an API for interacting with the file system.======
-const fs = require("fs");
+// const fs = require("fs");
 
 // write file asynchronously
-fs.writeFile("sample.txt", "This is a sample text file.", (err) => {
-  if (err) {
-    console.log("Error occurred:", err);
-  } else {
-    console.log("File written successfully!");
-  }
+// fs.writeFile("sample.txt", "This is a sample text file.", (err) => {
+//   if (err) {
+//     console.log("Error occurred:", err);
+//   } else {
+//     console.log("File written successfully!");
+//   }
+// });
+
+// console.log("File writing process started...");
+
+// // append data to a file asynchronously
+// fs.appendFile("sample.txt", "\nAppending some more text.", (err) => {
+//   if (err) {
+//     console.log("Error occurred while appending:", err);
+//   } else {
+//     console.log("Data appended successfully!");
+//   }
+// });
+
+// // // read file asynchronously
+// const data = fs.readFile("sample.txt", "utf-8", (err, data) => {
+//   if (err) {
+//     console.log("Error occurred while reading file:", err);
+//   } else {
+//     console.log("File content:", data.toString());
+//   }
+// });
+
+// event module in Node.js provides the EventEmitter class, which is used to handle events in Node.js applications.
+const EventEmitter = require("events");
+const emitter = new EventEmitter();
+
+// listen for an event
+emitter.on("bellRing", ({ period, text }) => {
+  console.log(
+    `Bell ring event received! Now it's time to go home. Period: ${period}, Text: ${text}`
+  );
 });
 
-console.log("File writing process started...");
-
-// append data to a file asynchronously
-fs.appendFile("sample.txt", "\nAppending some more text.", (err) => {
-  if (err) {
-    console.log("Error occurred while appending:", err);
-  } else {
-    console.log("Data appended successfully!");
-  }
-});
+/// raise an event, we can also pass multiple arguments while emitting an event
+setTimeout(() => {
+  emitter.emit("bellRing", {
+    period: "3rd Period",
+    text: "Get ready to leave!",
+  });
+}, 2000);
+// In this example, we create an EventEmitter instance, listen for the "bellRing" event, and emit the event after a 2-second delay, passing an object with period and text properties.
